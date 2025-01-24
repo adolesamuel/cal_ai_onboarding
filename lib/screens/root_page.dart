@@ -6,12 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// What are your primary health goals? (e.g., weight loss, muscle gain, maintaining a balanced diet)
+// Do you have any dietary preferences or restrictions? (e.g., vegetarian, vegan, gluten-free, allergies)
+// What is your current activity level? (e.g., sedentary, lightly active, very active)
+// How often do you typically cook at home? (e.g., rarely, sometimes, always)
+// What is your age and current weight
+
 class RootPage extends ConsumerWidget {
   const RootPage({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
     final onboadingController = ref.read(onboardingControllerProvider);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -23,9 +30,16 @@ class RootPage extends ConsumerWidget {
             Expanded(
               child: PageView(
                 controller: onboadingController.pageController,
-                children: const [
-                  SiginInScreen(),
-                  QuestionPage(),
+                onPageChanged: onboadingController.updatePage,
+                children: [
+                  ...List.generate(
+                    onboadingController.questions.length,
+                    (index) => QuestionPage(
+                      question: onboadingController.questions[index],
+                      onOptionSelected: (value) {},
+                    ),
+                  ),
+                  const SiginInScreen(),
                 ],
               ),
             ),

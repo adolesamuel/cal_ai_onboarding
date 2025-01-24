@@ -5,16 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SiginInScreen extends ConsumerStatefulWidget {
+class SiginInScreen extends ConsumerWidget {
   const SiginInScreen({super.key});
 
   @override
-  ConsumerState<SiginInScreen> createState() => _SiginInScreenState();
-}
-
-class _SiginInScreenState extends ConsumerState<SiginInScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final onboardingController = ref.read(onboardingControllerProvider);
     onboardingController.listenToSignInState(context, ref);
 

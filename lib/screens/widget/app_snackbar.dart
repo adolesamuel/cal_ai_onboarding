@@ -24,7 +24,6 @@ class AppSnackbar extends StatelessWidget {
       ),
       duration: Duration(seconds: duration ?? 2),
     );
-    // ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 

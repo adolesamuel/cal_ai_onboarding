@@ -1,6 +1,5 @@
 import 'package:cal_ai/configs/theme.dart';
 import 'package:cal_ai/firebase_options.dart';
-import 'package:cal_ai/hive_init.dart';
 import 'package:cal_ai/screens/root_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,8 +13,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  await initHive();
 
   runApp(const ProviderScope(child: MainApp()));
 }

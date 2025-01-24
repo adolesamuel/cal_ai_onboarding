@@ -8,6 +8,7 @@ ThemeData theme() {
     bottomSheetTheme: const BottomSheetThemeData(),
     primaryTextTheme: Typography().black,
     textTheme: Typography().black,
+    scaffoldBackgroundColor: Colors.white,
     // fontFamily: FontFamily.plusJakartaSans,
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: const TextStyle(

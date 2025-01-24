@@ -18,34 +18,51 @@ class RootPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final onboadingController = ref.read(onboardingControllerProvider);
+    List<Widget> pages = [
+      ...List.generate(
+        onboadingController.questions.length,
+        (index) => QuestionPage(
+          key: UniqueKey(),
+          question: onboadingController.questions[index],
+          onOptionSelected: (value, inputMap) {
+            onboadingController.updateOnboardingData(
+              onboadingController.questions[index].copyWith(
+                value,
+                inputMap,
+              ),
+            );
+          },
+        ),
+      ),
+      const SiginInScreen(),
+    ];
 
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            kToolbarHeight.verticalSpace,
-            const PageIndicator(),
-            8.verticalSpace,
-            Expanded(
-              child: PageView(
-                controller: onboadingController.pageController,
-                onPageChanged: onboadingController.updatePage,
+    return ListenableBuilder(
+        listenable: onboadingController,
+        builder: (context, _) {
+          return Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
                 children: [
-                  ...List.generate(
-                    onboadingController.questions.length,
-                    (index) => QuestionPage(
-                      question: onboadingController.questions[index],
-                      onOptionSelected: (value) {},
+                  kToolbarHeight.verticalSpace,
+                  const PageIndicator(),
+                  8.verticalSpace,
+                  Expanded(
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 200),
+                      switchInCurve: Curves.easeIn,
+                      switchOutCurve: Curves.easeIn,
+                      transitionBuilder: (child, animation) {
+                        return FadeTransition(opacity: animation, child: child);
+                      },
+                      child: pages[onboadingController.currentpage],
                     ),
                   ),
-                  const SiginInScreen(),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 }

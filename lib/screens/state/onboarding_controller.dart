@@ -1,4 +1,5 @@
-import 'package:cal_ai/configs/constants.dart';
+import 'dart:math';
+
 import 'package:cal_ai/models/onboarding_data.dart';
 import 'package:cal_ai/models/question_model.dart';
 import 'package:cal_ai/models/sign_up_model.dart';
@@ -14,54 +15,75 @@ final onboardingControllerProvider = Provider((ref) => OnboardingController());
 class OnboardingController extends ChangeNotifier {
   OnboardingController();
 
-  late final PageController pageController = PageController();
   int currentpage = 0;
 
   late final TextEditingController emailController = TextEditingController();
   late final TextEditingController passwordController = TextEditingController();
+
   List<Question> questions = [
     Question(
+      questions: Questions.healthgoals,
       question: 'What are your primary health goals?',
-      options: ['weight loss', 'muscle gain', 'maintaining a balanced diet)'],
+      options: ['weight loss', 'muscle gain', 'maintaining a balanced diet'],
     ),
     Question(
+      questions: Questions.dietaryPreference,
       question: 'Do you have any dietary preferences or restrictions?',
       options: ['vegetarian', 'vegan', 'gluten - free', 'allergies'],
     ),
     Question(
+      questions: Questions.activitylevel,
       question: 'What is your current activity level?',
       options: ['sedentary', 'lightly active', 'very active'],
     ),
     Question(
+      questions: Questions.cookingFrequency,
       question: 'How often do you typically cook at home?',
       options: ['rarely', 'sometimes', 'always'],
     ),
     Question(
+      questions: Questions.ageAndWeight,
       question: 'What is your age and current weight',
       type: QuestionType.input,
-      options: ['age (yrs)', 'weignt (kg)'],
+      options: ['age (yrs)', 'weight (kg)'],
     ),
   ];
 
+  OnboardingData onboardingData = OnboardingData();
+
   void nextPage() {
-    pageController.nextPage(
-      duration: Constants.shortAnimationDuration,
-      curve: Curves.easeIn,
-    );
+    currentpage += 1;
+    currentpage = min(currentpage, questions.length + 1);
     notifyListeners();
   }
 
   void previousPage() {
-    pageController.previousPage(
-      duration: Constants.shortAnimationDuration,
-      curve: Curves.easeIn,
-    );
+    currentpage -= 1;
+    currentpage = max(currentpage, 0);
     notifyListeners();
   }
 
-  void updatePage(int page) {
-    currentpage = page;
-    notifyListeners();
+  void updateOnboardingData(Question newData) {
+    switch (newData.questions) {
+      case Questions.healthgoals:
+        onboardingData = onboardingData.copyWith(healthgoals: newData.selection);
+        break;
+      case Questions.dietaryPreference:
+        onboardingData = onboardingData.copyWith(dietaryPreference: newData.selection);
+        break;
+      case Questions.activitylevel:
+        onboardingData = onboardingData.copyWith(activitylevel: newData.selection);
+        break;
+      case Questions.cookingFrequency:
+        onboardingData = onboardingData.copyWith(cookingFrequency: newData.selection);
+        break;
+      case Questions.ageAndWeight:
+        onboardingData = onboardingData.copyWith(
+          ageYrs: newData.inputMap?['age (yrs)'],
+          weightKG: newData.inputMap?['weight (kg)'],
+        );
+        break;
+    }
   }
 
   SignUpState signUpState(WidgetRef ref) => ref.watch(signUpStateProvider);
@@ -87,8 +109,9 @@ class OnboardingController extends ChangeNotifier {
     //Validate Email and Password Exists using formkey
     //make sign up request.
     ref.read(signUpStateProvider.notifier).signUp(
-        signUpInfo: SignUpModel(email: emailController.text, password: passwordController.text),
-        data: OnboardingData(email: emailController.text));
+          signUpInfo: SignUpModel(email: emailController.text, password: passwordController.text),
+          data: onboardingData.copyWith(email: emailController.text),
+        );
   }
 
 //Just A shortcut.
@@ -98,7 +121,6 @@ class OnboardingController extends ChangeNotifier {
 
   @override
   void dispose() {
-    pageController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();

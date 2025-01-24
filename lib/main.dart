@@ -1,6 +1,8 @@
 import 'package:cal_ai/configs/theme.dart';
+import 'package:cal_ai/firebase_options.dart';
 import 'package:cal_ai/hive_init.dart';
 import 'package:cal_ai/screens/root_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,9 +11,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await initHive();
 

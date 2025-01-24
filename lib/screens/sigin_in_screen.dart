@@ -1,4 +1,6 @@
 import 'package:cal_ai/screens/state/onboarding_controller.dart';
+import 'package:cal_ai/screens/state/state.dart';
+import 'package:cal_ai/screens/widget/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +16,10 @@ class _SiginInScreenState extends ConsumerState<SiginInScreen> {
   @override
   Widget build(BuildContext context) {
     final onboardingController = ref.read(onboardingControllerProvider);
+    onboardingController.listenToSignInState(context, ref);
+
+    final state = onboardingController.signUpState(ref);
+
     return ListenableBuilder(
       listenable: onboardingController,
       builder: (context, _) {
@@ -45,8 +51,8 @@ class _SiginInScreenState extends ConsumerState<SiginInScreen> {
             ),
             24.verticalSpace,
             ElevatedButton(
-              onPressed: onboardingController.signUp,
-              child: const Text('Sign Up'),
+              onPressed: state is SignUpLoading ? null : () => onboardingController.signUp(ref),
+              child: state is SignUpLoading ? const LoadingIndicator() : const Text('Sign Up'),
             )
           ],
         );

@@ -28,14 +28,14 @@ class SampleRepository {
           );
         },
       ),
-      name: "Sign Up Error",
+      name: "Sign Up",
     );
   }
 
   Future<Either<Failure, bool>> saveOnboardingInfo(OnboardingData data) {
     return ServiceRunner<bool>().run(
       call: sampleRemoteSource.saveOnboardingData(data),
-      name: "Onboarding Error",
+      name: "Onboarding",
     );
   }
 }

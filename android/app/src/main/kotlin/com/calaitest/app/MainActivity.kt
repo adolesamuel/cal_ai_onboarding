@@ -1,4 +1,4 @@
-package com.example.cal_ai
+package com.calaitest.app
 
 import io.flutter.embedding.android.FlutterActivity
 

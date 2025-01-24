@@ -16,8 +16,11 @@ class PageIndicator extends ConsumerWidget {
           final numOfPages = contrl.questions.length;
           return Row(
             children: [
-              const CircleAvatar(
-                child: BackButton(),
+              CircleAvatar(
+                backgroundColor: Colors.grey.shade300,
+                child: BackButton(
+                  onPressed: contrl.previousPage,
+                ),
               ),
               24.horizontalSpace,
               Expanded(

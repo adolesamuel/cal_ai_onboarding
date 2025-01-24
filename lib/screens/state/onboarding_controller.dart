@@ -51,6 +51,14 @@ class OnboardingController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void previousPage() {
+    pageController.previousPage(
+      duration: Constants.shortAnimationDuration,
+      curve: Curves.easeIn,
+    );
+    notifyListeners();
+  }
+
   void updatePage(int page) {
     currentpage = page;
     notifyListeners();

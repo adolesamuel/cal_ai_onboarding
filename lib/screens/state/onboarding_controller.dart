@@ -1,5 +1,6 @@
 import 'package:cal_ai/configs/constants.dart';
 import 'package:cal_ai/models/onboarding_data.dart';
+import 'package:cal_ai/models/question_model.dart';
 import 'package:cal_ai/models/sign_up_model.dart';
 import 'package:cal_ai/screens/state/signup_state_notifier.dart';
 import 'package:cal_ai/screens/state/state.dart';
@@ -14,14 +15,45 @@ class OnboardingController extends ChangeNotifier {
   OnboardingController();
 
   late final PageController pageController = PageController();
+  int currentpage = 0;
+
   late final TextEditingController emailController = TextEditingController();
   late final TextEditingController passwordController = TextEditingController();
+  List<Question> questions = [
+    Question(
+      question: 'What are your primary health goals?',
+      options: ['weight loss', 'muscle gain', 'maintaining a balanced diet)'],
+    ),
+    Question(
+      question: 'Do you have any dietary preferences or restrictions?',
+      options: ['vegetarian', 'vegan', 'gluten - free', 'allergies'],
+    ),
+    Question(
+      question: 'What is your current activity level?',
+      options: ['sedentary', 'lightly active', 'very active'],
+    ),
+    Question(
+      question: 'How often do you typically cook at home?',
+      options: ['rarely', 'sometimes', 'always'],
+    ),
+    Question(
+      question: 'What is your age and current weight',
+      type: QuestionType.input,
+      options: ['age (yrs)', 'weignt (kg)'],
+    ),
+  ];
 
   void nextPage() {
     pageController.nextPage(
       duration: Constants.shortAnimationDuration,
       curve: Curves.easeIn,
     );
+    notifyListeners();
+  }
+
+  void updatePage(int page) {
+    currentpage = page;
+    notifyListeners();
   }
 
   SignUpState signUpState(WidgetRef ref) => ref.watch(signUpStateProvider);

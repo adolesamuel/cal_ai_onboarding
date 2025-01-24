@@ -1,4 +1,6 @@
+import 'package:cal_ai/configs/theme.dart';
 import 'package:cal_ai/hive_init.dart';
+import 'package:cal_ai/screens/root_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,14 +26,11 @@ class MainApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(428, 800),
       builder: (context, child) {
-        return const MaterialApp(
-          scrollBehavior: CupertinoScrollBehavior(),
+        return MaterialApp(
+          scrollBehavior: const CupertinoScrollBehavior(),
           debugShowCheckedModeBanner: false,
-          home: Scaffold(
-            body: Center(
-              child: Text('Hello World!'),
-            ),
-          ),
+          home: const RootPage(),
+          theme: theme(),
         );
       },
     );

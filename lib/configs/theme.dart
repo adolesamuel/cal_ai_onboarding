@@ -9,7 +9,6 @@ ThemeData theme() {
     primaryTextTheme: Typography().black,
     textTheme: Typography().black,
     scaffoldBackgroundColor: Colors.white,
-    // fontFamily: FontFamily.plusJakartaSans,
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: const TextStyle(
         fontWeight: FontWeight.w600,
@@ -26,16 +25,6 @@ ThemeData theme() {
       disabledBorder: Constants.textFieldBorder,
     ),
     iconButtonTheme: const IconButtonThemeData(style: ButtonStyle(enableFeedback: true)),
-    //OutlinedButton
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      style: ButtonStyle(
-        enableFeedback: true,
-        // foregroundColor: WidgetStateProperty.resolveWith((states) => AppColors.white),
-        // side: WidgetStateProperty.resolveWith(
-        //     (states) => BorderSide(color: AppColors.outlinedButtonBorderColor, width: 3.0.r)),
-        padding: WidgetStateProperty.resolveWith((states) => REdgeInsets.symmetric(horizontal: 24, vertical: 10)),
-      ),
-    ),
     // Elevated Button
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

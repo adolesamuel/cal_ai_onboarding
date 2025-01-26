@@ -26,4 +26,10 @@ class SampleRemoteSource {
     await onboardingCollection.doc(uid).set(data);
     return true;
   }
+
+  Future<OnboardingData?> fetchOnboardingData() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final result = await onboardingCollection.doc(uid).get();
+    return result.data();
+  }
 }

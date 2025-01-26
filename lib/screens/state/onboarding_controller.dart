@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cal_ai/models/onboarding_data.dart';
 import 'package:cal_ai/models/question_model.dart';
 import 'package:cal_ai/models/sign_up_model.dart';
+import 'package:cal_ai/screens/home_page.dart';
 import 'package:cal_ai/screens/state/signup_state_notifier.dart';
 import 'package:cal_ai/screens/state/state.dart';
 import 'package:cal_ai/screens/widget/app_snackbar.dart';
@@ -112,6 +113,11 @@ class OnboardingController extends ChangeNotifier {
           context,
           text: 'Signed In',
         ).show();
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+          (route) => ModalRoute.of(context)!.isFirst,
+        );
       }
     });
   }

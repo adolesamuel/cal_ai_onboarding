@@ -1,5 +1,7 @@
 import 'package:cal_ai/configs/theme.dart';
 import 'package:cal_ai/firebase_options.dart';
+import 'package:cal_ai/screens/authorization_state_widget.dart';
+import 'package:cal_ai/screens/home_page.dart';
 import 'package:cal_ai/screens/root_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,7 +30,10 @@ class MainApp extends StatelessWidget {
         return MaterialApp(
           scrollBehavior: const CupertinoScrollBehavior(),
           debugShowCheckedModeBanner: false,
-          home: const RootPage(),
+          home: const AuthorizationStateWidget(
+            authWidget: RootPage(),
+            homeWidget: HomePage(),
+          ),
           theme: theme(),
         );
       },

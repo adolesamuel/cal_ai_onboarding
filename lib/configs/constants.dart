@@ -8,3 +8,12 @@ class Constants {
     borderRadius: BorderRadius.circular(100.0),
   );
 }
+
+extension Capitalize on String {
+  String capitalize() {
+    if (isNotEmpty) {
+      return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+    }
+    return "";
+  }
+}

@@ -51,4 +51,11 @@ class SampleRepository {
       name: "Sign In",
     );
   }
+
+  Future<Either<Failure, OnboardingData?>> getOnboardingData() {
+    return ServiceRunner<OnboardingData?>().run(
+      call: sampleRemoteSource.fetchOnboardingData(),
+      name: 'Fetch OnboardingData',
+    );
+  }
 }

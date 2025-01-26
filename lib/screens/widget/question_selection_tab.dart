@@ -1,3 +1,4 @@
+import 'package:cal_ai/configs/constants.dart';
 import 'package:flutter/material.dart';
 
 class QuestionSelectionTab extends StatelessWidget {
@@ -40,14 +41,5 @@ class QuestionSelectionTab extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-extension Capitalize on String {
-  String capitalize() {
-    if (isNotEmpty) {
-      return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
-    }
-    return "";
   }
 }

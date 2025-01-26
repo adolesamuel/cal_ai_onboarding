@@ -22,4 +22,15 @@ class SignupStateNotifier extends StateNotifier<SignUpState> {
       SignUpSuccess.new,
     );
   }
+
+  Future<void> signIn({required SignUpModel signUpInfo}) async {
+    state = SignInLoading();
+
+    final resultOrError = await sampleRepository.signIn(signUpInfo);
+
+    state = resultOrError.fold(
+      SignInFailure.new,
+      SignInSuccess.new,
+    );
+  }
 }

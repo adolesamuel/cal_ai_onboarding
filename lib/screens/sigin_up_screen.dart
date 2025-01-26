@@ -1,3 +1,4 @@
+import 'package:cal_ai/screens/sign_in_screen.dart';
 import 'package:cal_ai/screens/state/onboarding_controller.dart';
 import 'package:cal_ai/screens/state/state.dart';
 import 'package:cal_ai/screens/widget/loading_indicator.dart';
@@ -5,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SiginInScreen extends ConsumerWidget {
-  const SiginInScreen({super.key});
+class SignUpScreen extends ConsumerWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,6 +49,17 @@ class SiginInScreen extends ConsumerWidget {
             ElevatedButton(
               onPressed: state is SignUpLoading ? null : () => onboardingController.signUp(ref),
               child: state is SignUpLoading ? const LoadingIndicator() : const Text('Sign Up'),
+            ),
+            8.verticalSpace,
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SignInScreen(),
+                    ));
+              },
+              child: const Text('Already have an account? Sign In'),
             )
           ],
         );

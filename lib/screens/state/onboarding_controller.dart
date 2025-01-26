@@ -101,6 +101,17 @@ class OnboardingController extends ChangeNotifier {
           context,
           text: 'Signed Up',
         ).show();
+      } else if (next is SignInFailure) {
+        AppSnackbar(
+          context,
+          text: next.failure.message,
+          isError: true,
+        ).show();
+      } else if (next is SignInSuccess) {
+        AppSnackbar(
+          context,
+          text: 'Signed In',
+        ).show();
       }
     });
   }
@@ -111,6 +122,14 @@ class OnboardingController extends ChangeNotifier {
     ref.read(signUpStateProvider.notifier).signUp(
           signUpInfo: SignUpModel(email: emailController.text, password: passwordController.text),
           data: onboardingData.copyWith(email: emailController.text),
+        );
+  }
+
+  void signIn(WidgetRef ref) {
+    //Validate Email and Password Exists using formkey
+    //make sign up request.
+    ref.read(signUpStateProvider.notifier).signIn(
+          signUpInfo: SignUpModel(email: emailController.text, password: passwordController.text),
         );
   }
 

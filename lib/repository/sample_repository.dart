@@ -38,4 +38,17 @@ class SampleRepository {
       name: "Onboarding",
     );
   }
+
+  Future<Either<Failure, AppUser>> signIn(SignUpModel data) {
+    return ServiceRunner<AppUser>().run(
+      call: _firebaseAuth.signInWithEmailAndPassword(email: data.email, password: data.password).then(
+        (value) {
+          return AppUser.fromFirebaseUser(
+            value.user!,
+          );
+        },
+      ),
+      name: "Sign In",
+    );
+  }
 }

@@ -1,5 +1,5 @@
 import 'package:cal_ai/screens/question_page.dart';
-import 'package:cal_ai/screens/sigin_in_screen.dart';
+import 'package:cal_ai/screens/sigin_up_screen.dart';
 import 'package:cal_ai/screens/state/onboarding_controller.dart';
 import 'package:cal_ai/screens/widget/page_indicator.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class RootPage extends ConsumerWidget {
           },
         ),
       ),
-      const SiginInScreen(),
+      const SignUpScreen(),
     ];
 
     return ListenableBuilder(

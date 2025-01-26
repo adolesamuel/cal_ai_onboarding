@@ -18,3 +18,17 @@ class SignUpSuccess extends SignUpState {
 }
 
 class SignUpLoading extends SignUpState {}
+
+class SignInFailure extends SignUpState {
+  final Failure failure;
+
+  SignInFailure(this.failure);
+}
+
+class SignInSuccess extends SignUpState {
+  final AppUser user;
+
+  SignInSuccess(this.user);
+}
+
+class SignInLoading extends SignUpState {}
